@@ -1,5 +1,5 @@
 'use client';
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { HeaderTable } from '@/components/molecule/HeaderTable';
 import {
   Table,
@@ -19,7 +19,7 @@ import PeginationMolecul from '@/components/molecule/Pagination';
 import { Skeleton } from '@/components/ui/skeleton';
 import DialogCatagory from './DialogCatagory';
 import { Button } from '@/components/ui/button';
-import { category } from '@/data/BackupData.json';
+import category from '@/data/BackupData.json';
 import { ProviderContext } from '@/context/ThemeContext';
 import CatagoryComfirmDelet from './CategoryConfirmDelet';
 import { useDeletCatagory } from '../query/useDeletCatagory';
@@ -57,7 +57,7 @@ export default function CategoryTableClient() {
 
   // localStorage handle ssr
   React.useEffect(() => {
-    const payload = JSON.stringify(category);
+    const payload = JSON.stringify(category.category);
     const categoryItem = localStorage.getItem('category');
 
     // get true/kosong data.json setItem data.json

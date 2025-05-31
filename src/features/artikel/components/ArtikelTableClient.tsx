@@ -16,11 +16,10 @@ import { HeaderTable } from '@/components/molecule/HeaderTable';
 import { useFetchQuery } from '../query/useFetchQuery';
 import PeginationMolecu from '@/components/molecule/Pagination';
 import { Skeleton } from '@/components/ui/skeleton';
-import { artikel } from '@/data/BackupData.json';
+import artikel from '@/data/BackupData.json';
 import { useDeletArtikel } from '../query/useDeletArtikel';
 import { Button } from '@/components/ui/button';
 import ArtikelComfirmDelet from './ArtikelComfirmDelet';
-import { useFetchCatagory } from '@/features/categorys/query/useFetchCatagory';
 
 export default function ArtikelTableClient() {
   // state for select artikel
@@ -62,7 +61,7 @@ export default function ArtikelTableClient() {
     const status = (error as any)?.status;
 
     if (status === 404) {
-      jsonArtikel.push(...artikel);
+      jsonArtikel.push(...artikel.artikel);
     }
   }
 

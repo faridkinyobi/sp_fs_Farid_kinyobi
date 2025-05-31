@@ -2,7 +2,7 @@ import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import FormAtikelClient from './FormAtikelClient';
-export default function ArtikelCreatClinet() {
+export default function ArtikelCreatClient() {
   return (
     <div className="border bg-secondary rounded-2xl">
       <div className=" space-y-6">
