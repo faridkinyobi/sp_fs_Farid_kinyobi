@@ -1,4 +1,14 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📰 Aplikasi Manajemen Artikel dengan Role User & Admin
+
+Aplikasi ini adalah platform manajemen artikel yang memiliki dua role: **User** dan **Admin**. Dibangun dengan stack modern seperti **Next.js**, **React Hook Form**, **Zod**, **React Query**, dan **Tailwind CSS + ShadCN UI**.
+
+---
+
+## Instalasi
+
+- git clone https://github.com/faridkinyobi/Manajemen-Artikel.git
+- cd Manajemen-Artikel
+- npm install
 
 ## Getting Started
 
@@ -14,23 +24,23 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Fitur Utama
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🧰 Teknologi yang Digunakan
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Teknologi       | Fungsi                                   |
+| --------------- | ---------------------------------------- |
+| Next.js         | Framework React untuk SSR dan routing    |
+| TypeScript      | Bahasa statis untuk keamanan type        |
+| React Hook Form | Pengelolaan form yang ringan dan efisien |
+| Zod             | Validasi skema form                      |
+| React Query     | Fetching & caching data asinkron         |
+| Tailwind CSS    | Utility-first CSS framework              |
+| ShadCN UI       | Komponen UI siap pakai berbasis Tailwind |
+| Framer Motion   | Animasi halus dan interaktif             |
+| Axios           | HTTP client untuk komunikasi dengan API  |
+| Axios           | HTTP client untuk komunikasi dengan API  |
 
-## Learn More
+⚙️ Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+NEXT_PUBLIC_API_URL=http://localhost:3000/api

@@ -1,0 +1,262 @@
+{
+  "artikel": [
+    {
+      "id": "1",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Cybersecurity Essentials Every Developer Should Know",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-01",
+      "content": "Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "2",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "The Future of Work: Remote-First Teams and Digital Tools",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-10",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "3",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Design Systems: Why Your Team Needs One in 2025",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-08-25",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "4",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Web3 and the Decentralized Internet: What You Need to...",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "5",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Debugging Like a Pro: Tools & Techniques for Faster Fixes",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05"
+    },
+    {
+      "id": "6",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Accessibility in Design: More Than Just Compliance",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "7",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Figma's New Dev Mode: A Game-Changer for Designers & Developers",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "8",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "10 UI Trends Dominating 2025",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "9",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Debugging Like a Pro: Tools & Techniques for Faster Fixes",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "10",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Cybersecurity Essentials Every Developer Should Know",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-01",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "11",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "The Future of Work: Remote-First Teams and Digital Tools",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-10",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "12",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Design Systems: Why Your Team Needs One in 2025",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-08-25",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "13",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Web3 and the Decentralized Internet: What You Need to...",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "14",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Debugging Like a Pro: Tools & Techniques for Faster Fixes",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "15",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Accessibility in Design: More Than Just Compliance",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "16",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Figma's New Dev Mode: A Game-Changer for Designers & Developers",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "17",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "10 UI Trends Dominating 2025",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05",
+      "content": " Understand the key ideas behind Web3 and how it could reshape the internet as we know it."
+    },
+    {
+      "id": "18",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Debugging Like a Pro: Tools & Techniques for Faster Fixes",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05"
+    },
+    {
+      "id": "19",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Debugging Like a Pro: Tools & Techniques for Faster Fixes",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05"
+    },
+    {
+      "id": "20",
+      "imageUrl": "https://picsum.photos/200/300",
+      "title": "Debugging Like a Pro: Tools & Techniques for Faster Fixes",
+      "category": { "name": "Technology" },
+      "createdAt": "2024-09-05"
+    }
+  ],
+  "category": [
+    {
+      "id": "1-category",
+      "name": "React",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "2-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "3-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "4-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "5-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "6-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "7-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "8-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "9-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "10-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "11-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "12-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "13-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "14-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "15-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "16-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "17-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "18-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "19-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    },
+    {
+      "id": "20-category",
+      "name": "Technology",
+      "createdAt": "2024-09-01"
+    }
+  ]
+}
