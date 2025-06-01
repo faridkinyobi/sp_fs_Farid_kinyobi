@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
-import NavUser from '@/components/organism/navUser';
-import { Search } from 'lucide-react';
+import { LogOut, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { SelectMolecul } from '@/components/molecule/SelectMolecul';
 import CardArtikelUser from '@/components/molecule/CardArtikelUser';
@@ -13,7 +12,33 @@ import { FilterDataArikel } from '@/utils/filter';
 import LoadingCardArtikel from '@/components/molecule/LoadingCardArtikel';
 import { IstateTable } from '../../types/types';
 import { useFetchCatagory } from '@/features/categorys/query/useFetchCatagory';
+import Footer from '@/components/organism/Footer';
+import Image from 'next/image';
+import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
+import {
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { useFetchProfil } from '@/features/Auth/query/usefetchProfil';
+import { useRouter } from 'next/navigation';
+import DialogTemplate from '@/components/molecule/DialogTemplate';
+import { Button } from '@/components/ui/button';
+import { DialogFooter } from '@/components/ui/dialog';
+import { deletCookies } from '@/lib/actions';
 export default function userArtikelClient() {
+  const router = useRouter();
+  const { data: profileData } = useFetchProfil();
+  const avatar = profileData?.username?.split('');
+  let name;
+  if (avatar) {
+    name = avatar[0];
+  }
+
+  const [openAddModal, setOpenAddModal] = React.useState<boolean>(false);
+  const [openDropdown, setDropdwon] = React.useState<boolean>(false);
+
   // state for select artikel
   const [queryParams, setQueryParams] = React.useState<IstateTable>({
     title: '',
@@ -52,7 +77,12 @@ export default function userArtikelClient() {
       const dummyDataParse = categoryItem ? JSON.parse(categoryItem) : [];
       setBackupCategory(dummyDataParse);
     }
-  }, []);
+    if (openDropdown) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [openDropdown]);
 
   interface IArtikel {
     id?: number | string;
@@ -63,7 +93,7 @@ export default function userArtikelClient() {
 
   const ArtikelJson: IArtikel[] = [];
 
-  // // fetch error
+  // fetch error
   if (isError) {
     const status = (error as any)?.status;
     if (status === 404) {
@@ -101,12 +131,108 @@ export default function userArtikelClient() {
     search: '',
   });
   const options = categoryData?.data || [];
+  const handleOpen = () => {
+    setOpenAddModal(!openAddModal);
+  };
+  const handleLogout = async (open: boolean) => {
+    setOpenAddModal(open);
+    await deletCookies();
+    router.push('/');
+  };
 
+  //comfrime
+  if (openAddModal) {
+    return (
+      <DialogTemplate
+        className="h-[180px]"
+        open={openAddModal}
+        onOpenChange={handleOpen}
+        title="Logout"
+        desc="Are you sure want to logout?"
+      >
+        <DialogFooter className="flex justify-end flex-row gap-2">
+          <Button
+            type="button"
+            variant={'outline'}
+            className="font-medium cursor-pointer"
+            onClick={() => setOpenAddModal(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => handleLogout}
+            type="submit"
+            variant={'destructive'}
+          >
+            Delete
+          </Button>
+        </DialogFooter>
+      </DialogTemplate>
+    );
+  }
   return (
-    <div className="min-h-screen space-y-10 ">
-      <header className="relative bg-[url('/header-user.jpg')] w-full flex items-center bg-cover bg-center flex-col">
+    <div className="space-y-10 relative  ">
+      {openDropdown && (
+        <div
+          className="fixed inset-0 bg-[#0A0B0E] opacity-40 z-20 w-screen h-screen"
+          onClick={() => setDropdwon(false)}
+        />
+      )}
+
+      <header className="relative bg-[url('/header-user.jpg')] w-full flex items-center bg-cover bg-center flex-col ">
         <div className="absolute inset-0 bg-[#2563EBDB]"></div>
-        <NavUser />
+        <nav className="relative z-10 flex items-center justify-between w-full  py-4 md:py-8  px-5 md:px-[60px] bg-white md:bg-transparent ">
+          <Image
+            src="/iconDashboard.svg"
+            width={134}
+            alt="iconDasboard"
+            height={24}
+            className="py-1.5 hidden md:block"
+            priority
+          />
+          <Image
+            src="/iconMobail.svg"
+            width={134}
+            alt="iconDasboard"
+            height={24}
+            className="py-1.5 block md:hidden"
+            priority
+          />
+
+          <div className="relative ">
+            <DropdownMenu open={openDropdown} onOpenChange={setDropdwon}>
+              <DropdownMenuTrigger className="focus:outline-none cursor-pointer flex space-x-2 items-center  relative ">
+                <Avatar>
+                  <AvatarFallback className="bg-[#BFDBFE] text-[#1E3A8A]">
+                    {name || 'U'}
+                  </AvatarFallback>
+                </Avatar>
+                <span className="ml-1 text-white">
+                  {profileData?.username || 'admin'}
+                </span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="start"
+                sideOffset={8}
+                alignOffset={-100}
+                className="mt-2 rounded-md shadow-lg bg-white w-[224px] overflow-x-hidden space-y-2 "
+              >
+                <DropdownMenuItem
+                  className="py-1.5 px-2 cursor-pointer"
+                  onClick={() => router.push('/user/profile')}
+                >
+                  My Account
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="py-1.5 px-2 cursor-pointer flex text-destructive"
+                  onClick={handleLogout}
+                >
+                  <LogOut size={20} className="mr-2" /> Log out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </nav>
         {/* contain */}
         <div className=" flex-col text-center max-w-[337px] md:max-w-[730px] text-white mx-6 mt-10.5 mb-[85.5px] space-y-10">
           {/* tital */}
@@ -191,6 +317,7 @@ export default function userArtikelClient() {
           <div className="py-6"></div>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

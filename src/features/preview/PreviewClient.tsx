@@ -29,7 +29,7 @@ export default function PreviewClient({ slug }: { slug: string }) {
   const artikelOther = (Artikel?.data || [])
     .filter((item: any) => item.category.name === dataById.category.name)
     .slice(0, 3);
-
+    
   // console.log(data);
   return (
     <div>

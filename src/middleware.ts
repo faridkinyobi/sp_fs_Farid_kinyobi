@@ -17,12 +17,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  if (role?.toLowerCase() === 'Admin' && !pathname.startsWith('/dashboard')) {
+  if (role?.toLowerCase() === 'admin' && !pathname.startsWith('/dashboard')) {
     return NextResponse.redirect(new URL('/dashboard/artikel', request.url));
   }
 
-  if (role?.toLowerCase() === 'User' && !pathname.startsWith('/users')) {
-    return NextResponse.redirect(new URL('/users', request.url));
+  if (role?.toLowerCase() === 'user' && !pathname.startsWith('/users')) {
+    return NextResponse.redirect(new URL('/user/artikel', request.url));
   }
 
   return NextResponse.next();

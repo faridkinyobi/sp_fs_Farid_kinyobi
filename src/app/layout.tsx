@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${archivo.variable} antialiased font-sans`}>
+      <body className={`${archivo.variable} antialiased font-sans `}>
         <NextTopLoader />
         <Toaster />
         <ReactQueryProvider>{children}</ReactQueryProvider>
