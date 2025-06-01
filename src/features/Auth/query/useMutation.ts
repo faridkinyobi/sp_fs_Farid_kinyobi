@@ -6,7 +6,7 @@ export const useMutationAuth = ({ onSuccess, onError }: IuseLoginProps) => {
   return useMutation({
     mutationFn: async (data: IAuthForm) => {
       return await postData({
-        url: 'auth/logi',
+        url: 'auth/login',
         payload: data,
       });
     },
