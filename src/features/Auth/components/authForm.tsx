@@ -30,11 +30,15 @@ export default function authForm() {
     },
   }) as ReturnType<typeof useFormLogin>;
 
-  const { control, handleSubmit } = form;
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = form;
   const { mutate, isPending } = useMutationAuth({
     onSuccess: async (value: IresultRes) => {
       await setAuthCookies(value.token, value.role); // next header
-      toast.success('Successfully  Login');
+      toast.success('Login Successfully');
       if ('Admin' === value.role) {
         router.push('/dashboard/artikel');
       } else if (value.role === 'User') {
@@ -102,7 +106,7 @@ export default function authForm() {
                   />
                 </FormControl>
                 <span
-                  className=" fixed top-[53%] right-[10%] md:right-[37%] -translate-y-1/2 cursor-pointer text-muted-foreground"
+                  className={` absolute ${errors.password ? 'right-2 top-[45%]' : ' right-2 top-2/3'}   -translate-y-1/2 cursor-pointer text-muted-foreground `}
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}

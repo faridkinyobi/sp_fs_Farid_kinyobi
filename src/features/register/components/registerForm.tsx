@@ -17,6 +17,7 @@ import { useMutationRegister } from '../query/useMutionRegirter';
 import { SelectMolecul } from '@/components/molecule/SelectMolecul';
 import { setAuthCookies } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -36,6 +37,7 @@ export default function RegisterForm() {
   const { mutate, isPending } = useMutationRegister({
     onSuccess: async (value: IreponsRegister) => {
       await setAuthCookies(value.token, value.role);
+      toast.success('Register Successfully ');
       if ('Admin' === value.role) {
         router.push('/dashboard/artikel');
       } else if (value.role === 'User') {
@@ -52,6 +54,7 @@ export default function RegisterForm() {
     { name: 'Admin', value: 'Admin', id: '1' },
     { name: 'User', value: 'User', id: '2' },
   ];
+  // console.log(errors);
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmite)} className=" space-y-6 w-full">
@@ -75,15 +78,15 @@ export default function RegisterForm() {
             render={({ field }) => (
               <FormItem className=" relative">
                 <FormLabel>Password</FormLabel>
-                <FormControl>
+                <FormControl className=" relative">
                   <Input
                     {...field}
                     placeholder="Input password"
                     type={showPassword ? 'text' : 'password'}
-                  />
+                  ></Input>
                 </FormControl>
                 <span
-                  className=" fixed top-[53%] right-[10%] md:right-[37%] -translate-y-1/2 cursor-pointer text-muted-foreground"
+                  className={` absolute ${errors.password ? 'right-2 top-[45%] ' : ' right-2 top-2/3'}   -translate-y-1/2 cursor-pointer text-muted-foreground `}
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}

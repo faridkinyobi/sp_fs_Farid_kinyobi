@@ -10,8 +10,5 @@ export const useMutationRegister = ({ onSuccess }: IuseRegisterProps) => {
       return await debouncedPost({ url: 'auth/register', payload: data });
     },
     onSuccess,
-    onError: (error) => {
-      console.log(error);
-    },
   });
 };
