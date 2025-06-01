@@ -82,13 +82,13 @@ export default function RegisterForm() {
                     type={showPassword ? 'text' : 'password'}
                   />
                 </FormControl>
-                <FormMessage />
                 <span
-                  className="absolute right-2 top-2/3 -translate-y-1/2 cursor-pointer text-muted-foreground"
+                  className=" fixed top-[53%] right-[10%] md:right-[37%] -translate-y-1/2 cursor-pointer text-muted-foreground"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </span>
+                <FormMessage />
               </FormItem>
             )}
           />
