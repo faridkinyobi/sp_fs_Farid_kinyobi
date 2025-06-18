@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("NEXT_DATABASE_URL")
+}
+
+model User {
+  id         String       @id @default(uuid())
+  email      String       @unique
+  password   String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Membership Membership[]
+  Projeck    Project[]
+  Task       Task[]
+
+  @@map("users")
+}
+
+model Project {
+  id         String       @id @default(uuid())
+  name       String
+  ownerId    String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Membership Membership[]
+  owner      User         @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  Task       Task[]
+
+  @@map("projects")
+}
+
+model Task {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  status      String   @default("todo")
+  projectId   String
+  assigneeId  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  assignee    User     @relation(fields: [assigneeId], references: [id], onDelete: Cascade)
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("tasks")
+}
+
+model Membership {
+  id        String   @id @default(uuid())
+  userId    String
+  projectId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, projectId])
+  @@map("memberships")
+}

@@ -10,50 +10,46 @@ import {
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Newspaper, Tag, LogOut } from 'lucide-react';
+import { LayoutDashboard, LogOut, FolderKanban } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import DialogTemplate from '../molecule/DialogTemplate';
 import { DialogFooter } from '../ui/dialog';
 import { Button } from '../ui/button';
 import React from 'react';
-import { deletCookies } from '@/lib/actions';
+import { deletCookies } from '@/lib/cookies';
 import { useRouter } from 'next/navigation';
-import { useFetchCatagory } from '@/features/categorys/query/useFetchCatagory';
+import { ProviderContext } from '@/context/ThemeContext';
+
 const menuItems = [
   {
-    href: '/dashboard/artikel',
-    label: 'Artikel',
-    icon: <Newspaper size={20} />,
+    href: '/dashboard',
+    label: 'Dashboard',
+    icon: <LayoutDashboard size={20} />,
   },
-  { href: '/dashboard/category', label: 'Category', icon: <Tag size={20} /> },
+  // { href: '/projects', label: 'Projects', icon: <FolderKanban size={20} /> },
   { href: '/Login', label: 'Logout', icon: <LogOut size={20} /> },
 ];
+
 export function AppSidebar() {
   const pathname = usePathname();
-  const [openAddModal, setOpenAddModal] = React.useState<boolean>(false);
+  // const [openAddModal, setOpenAddModal] = React.useState<boolean>(false);
   const router = useRouter();
-  // logout catagory open
-  const handleLogoutOpen = (open: boolean) => {
-    setOpenAddModal(open);
-  };
+  const context = React.useContext(ProviderContext);
+  if (!context) return null;
+  const { open, setOpen } = context;
 
   //   comfrim model ok delet close
   const handleCloseModelComfrime = async () => {
     await deletCookies();
     router.push('/');
-    setOpenAddModal(!openAddModal);
-    window.location.reload();
+    setOpen({ ...open, logout: !open.logout });
   };
-
+  const handleOpen = () => setOpen({ ...open, logout: !open.logout });
   return (
     <Sidebar className="w-[267px] ">
-      {openAddModal && (
-        <DialogDelet
-          open={openAddModal}
-          onOpenChange={handleLogoutOpen}
-          handleCloseModelComfrime={handleCloseModelComfrime}
-        />
+      {open && (
+        <DialogDelet handleCloseModelComfrime={handleCloseModelComfrime} />
       )}
       <SidebarHeader className=" py-6 px-8">
         <Image
@@ -81,7 +77,7 @@ export function AppSidebar() {
                 href={item.label === 'Logout' ? pathname : item.href}
                 onClick={(e) => {
                   if (item.label === 'Logout') {
-                    handleLogoutOpen(!openAddModal);
+                    handleOpen();
                   }
                 }}
               >
@@ -97,20 +93,18 @@ export function AppSidebar() {
 }
 
 export type DialogProps = {
-  onOpenChange: (open: boolean) => void;
-  open: boolean;
   handleCloseModelComfrime?: () => void;
 };
-const DialogDelet = ({
-  onOpenChange,
-  open,
-  handleCloseModelComfrime,
-}: DialogProps) => {
+const DialogDelet = ({ handleCloseModelComfrime }: DialogProps) => {
+  const context = React.useContext(ProviderContext);
+  if (!context) return null;
+  const { open, setOpen } = context;
+  const handleOpen = () => setOpen({ ...open, logout: !open.logout });
   return (
     <DialogTemplate
-      className="h-[180px]"
-      open={open}
-      onOpenChange={onOpenChange}
+      open={open.logout}
+      onOpenChange={() => handleOpen()}
+      className="h-[180px] w-[400px]"
       title="Logout"
       desc={'Are you sure want to logout?'}
     >
@@ -118,14 +112,15 @@ const DialogDelet = ({
         <Button
           type="button"
           variant={'outline'}
-          className=" font-medium"
-          onClick={() => onOpenChange(!open)}
+          className=" cursor-pointer"
+          onClick={() => handleOpen()}
         >
           Cancel
         </Button>
         <Button
-          onClick={handleCloseModelComfrime}
+          onClick={() => handleCloseModelComfrime && handleCloseModelComfrime()}
           type="submit"
+          className="cursor-pointer"
           variant={'destructive'}
         >
           Logout

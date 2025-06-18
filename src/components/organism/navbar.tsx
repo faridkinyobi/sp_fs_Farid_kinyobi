@@ -1,50 +1,34 @@
 'use client';
-import { usePathname } from 'next/navigation';
+
 import React from 'react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Button } from '../ui/button';
-import { useRouter } from 'next/navigation';
-import { useFetchProfil } from '@/features/Auth/query/usefetchProfil';
-export function AppNavbar() {
-  const router = useRouter();
+import { SidebarTrigger } from '../ui/sidebar';
 
-  const pathname = usePathname();
-  const titlePage = pathname.split('/').filter(Boolean).pop();
-  // profil
-  const { data } = useFetchProfil();
-  const avatar = data?.username?.split('');
-  let name;
-  if (avatar) {
-    name = avatar[0];
-  }
-  const titlePageEdit = pathname.split('/').filter(Boolean)[1];
-  const title = titlePageEdit === 'edit' ? titlePage : titlePageEdit;
+export function AppNavbar() {
+  const [email, setEmail] = React.useState('');
+  const [name, setName] = React.useState('');
+
+  React.useEffect(() => {
+    const storedEmail = localStorage.getItem('email');
+    if (storedEmail) {
+      setEmail(storedEmail);
+      setName(storedEmail.charAt(0).toUpperCase());
+    }
+  }, []);
 
   return (
-    <div className="ml-0 bg-secondary h-[68px] flex items-center border-border border-b">
-      <div className="w-full flex justify-between  mx-6">
-        <SidebarTrigger className=" border-0 bg-transparent">
-          <h1 className=" capitalize font-semibold text-xl text-secondary-foreground cursor-pointer border-0">
-            {title === 'profile' ? 'User Profil' : title}
-          </h1>
-        </SidebarTrigger>
-
-        <div className="flex items-center -space-x-1 underline">
+    <nav className="border border-b bg-white ">
+      <div className="px-10 flex items-center justify-between py-4 md:py-8">
+        <SidebarTrigger size={'icon'} />
+        <div className="flex items-center gap-1.5">
           <Avatar>
             <AvatarFallback className="bg-[#BFDBFE] text-[#1E3A8A]">
-              {name || 'U'}
+              {name}
             </AvatarFallback>
           </Avatar>
-          <Button
-            onClick={() => router.push('/dashboard/profile')}
-            variant="link"
-            className="hover:no-underline cursor-pointer"
-          >
-            {data?.username || 'Admin'}
-          </Button>
+          <span className="ml-1 text-muted underline">{email}</span>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }

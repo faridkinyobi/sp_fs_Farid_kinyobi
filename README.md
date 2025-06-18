@@ -1,13 +1,13 @@
-# 📰 Aplikasi Manajemen Artikel dengan Role User & Admin
+# 📰 Aplikasi Multi-User Project Management App
 
-Aplikasi ini adalah platform manajemen artikel yang memiliki dua role: **User** dan **Admin**. Dibangun dengan stack modern seperti **Next.js**, **React Hook Form**, **Zod**, **React Query**, dan **Tailwind CSS + ShadCN UI**.
+Aplikasi ini adalah Multi-User Project Management App denagn sistem User bisa drag and drop antar status. Dibangun dengan stack modern seperti **Next.js**, **React Hook Form**, **Zod**, **React Query**, dan **Tailwind CSS + ShadCN UI**.
 
 ---
 
 ## Instalasi
 
-- git clone https://github.com/faridkinyobi/Manajemen-Artikel.git
-- cd Manajemen-Artikel
+- git clone https://github.com/faridkinyobi/sp_fs_Farid_kinyobi.git
+- cd sp_fs_Farid_kinyobi
 - npm install
 
 ## Getting Started
@@ -37,10 +37,11 @@ bun dev
 | React Query     | Fetching & caching data asinkron         |
 | Tailwind CSS    | Utility-first CSS framework              |
 | ShadCN UI       | Komponen UI siap pakai berbasis Tailwind |
-| Framer Motion   | Animasi halus dan interaktif             |
-| Axios           | HTTP client untuk komunikasi dengan API  |
-| Axios           | HTTP client untuk komunikasi dengan API  |
+
 
 ⚙️ Environment Variables
 
-NEXT_PUBLIC_API_URL=http://localhost:3000/api
+NEXT_DATABASE_URL=postgresql://postgres:password@localhost:5432/data_baseName?schema=public
+NEXT_JWT_ACCESS_TOKEN_SECRET=.................................................
+NEXT_JWT_REFRESH_TOKEN_SECRET=................................................
+NODE_ENV=development|testing|production

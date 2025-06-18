@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import RegisterForm from '@/features/register/components/registerForm';
+import RegisterForm from './features/RegisterForm';
 import Link from 'next/link';
 
 export default function page() {
@@ -14,9 +14,9 @@ export default function page() {
           priority
         />
         <RegisterForm />
-        <p className="text-sm">
+        <p className="text-sm md:text-base">
           already have an account?
-          <Link href={'/'} className=" text-primary underline ml-1">
+          <Link href={'/login'} className=" text-primary underline ml-1">
             Login
           </Link>
         </p>

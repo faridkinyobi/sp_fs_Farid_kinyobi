@@ -1,33 +1,27 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-
-const PUBLIC_PATHS = ['/', '/register'];
+import { notFound } from 'next/navigation';
+const PRIVATE_PATHS = ['/dashboard', '/product'];
+const PUBLIC_PATHS = ['/login', '/register', '/'];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const protectedPrivateRoute = PRIVATE_PATHS.includes(pathname);
+  const publicRoute = PRIVATE_PATHS.includes(pathname);
 
-  if (PUBLIC_PATHS.includes(pathname)) {
-    return NextResponse.next();
-  }
- 
+  // ssr
   const token = request.cookies.get('auth')?.value;
-  const role = request.cookies.get('role')?.value;
 
-  if (!token) {
+  if (protectedPrivateRoute && !token) {
     return NextResponse.redirect(new URL('/', request.url));
   }
-
-  if (role?.toLowerCase() === 'admin' && !pathname.startsWith('/dashboard')) {
-    return NextResponse.redirect(new URL('/dashboard/artikel', request.url));
-  }
-
-  if (role?.toLowerCase() === 'user' && !pathname.startsWith('/users')) {
-    return NextResponse.redirect(new URL('/user/artikel', request.url));
+  if (publicRoute && token && !pathname.startsWith('/dashboard')) {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/user/:path*'],
+  matcher: ['/dashboard/:path*', '/project/:path*'],
 };

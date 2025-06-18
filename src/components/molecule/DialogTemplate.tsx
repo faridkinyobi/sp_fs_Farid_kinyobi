@@ -7,27 +7,27 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 
+import React from 'react';
+
 export type DialogCatagoryProps = {
-  onOpenChange: (open: boolean) => void;
-  open: boolean;
   children: React.ReactNode;
-  title: string;
+  title?: string;
   desc?: string;
   className?: string;
+  open: boolean;
+  onOpenChange: () => void;
 };
 export default function DialogTemplate({
-  onOpenChange,
   open,
   children,
   title,
   desc,
   className,
+  onOpenChange,
 }: DialogCatagoryProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
-        className={`[&>button.absolute]:hidden ${className}  w-[400px]`}
-      >
+      <DialogContent className={`[&>button.absolute]:hidden ${className}`}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription aria-describedby={desc ? undefined : ''}>

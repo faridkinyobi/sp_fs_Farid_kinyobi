@@ -1,12 +1,14 @@
-import React from 'react';
-import { IcategoryForm } from '../features/categorys/types/types';
-export interface Category {
+export interface IDgetcontext {
   id: string;
-  name: string;
+}
+export interface IOpenModel {
+  task: boolean;
+  project: boolean;
+  logout: boolean;
 }
 export type CountContextType = {
-  idCatagory: Category | undefined;
-  setIdCatagory: React.Dispatch<
-    React.SetStateAction<{ id: string; name: string } | undefined>
-  >;
+  id: IDgetcontext | null;
+  setId: React.Dispatch<React.SetStateAction<IDgetcontext | null>>;
+  open: IOpenModel;
+  setOpen: React.Dispatch<React.SetStateAction<IOpenModel>>;
 };

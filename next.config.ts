@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       's3.sellerpintar.com',
       'res.cloudinary.com',
       'localhost:3000',
+      'storage.googleapis.com',
     ],
   },
 };

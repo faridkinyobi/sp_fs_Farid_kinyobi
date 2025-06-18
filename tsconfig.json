@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/data/BackupData.js", "src/features/artikel/components/ArtikelCreatClientsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/data/BackupData.js", "src/features/artikel/components/ArtikelCreatClientsx", "src/app/projects/[slug]/features/useFormTask.ts"],
   "exclude": ["node_modules"]
 }
