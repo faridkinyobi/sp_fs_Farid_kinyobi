@@ -18,8 +18,9 @@ import { useFormTask } from '../useFormTask';
 import { useMutationEditTask, useMutationTask } from '../useMutation';
 import { ItaskFormValidate } from '@/lib/validations';
 import { useSearchParams } from 'next/navigation';
-
+import { useQueryClient } from '@tanstack/react-query';
 export default function FormTask() {
+  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const projectId = searchParams.get('id');
 
@@ -44,8 +45,10 @@ export default function FormTask() {
     if (id) {
       setValue('description', (id as any).description ?? '');
       setValue('title', (id as any).title ?? '');
+    } else {
+      form.reset({ title: '', description: '', projectId: projectId || '' });
     }
-  }, [projectId]);
+  }, [id, projectId, setValue]);
 
   // add task
   const { mutate: AddTask, isPending } = useMutationTask({
@@ -55,10 +58,9 @@ export default function FormTask() {
         return;
       }
       toast.success('Create Successfully');
-      setTimeout(() => {
-        setOpen((prev) => ({ ...prev, task: !prev.task }));
-        window.location.reload();
-      }, 400);
+
+      setOpen((prev) => ({ ...prev, task: !prev.task }));
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
   });
 
@@ -70,10 +72,9 @@ export default function FormTask() {
         return;
       }
       toast.success('Create Successfully');
-      setTimeout(() => {
-        setOpen((prev) => ({ ...prev, task: !prev.task }));
-        window.location.reload();
-      }, 400);
+
+      setOpen((prev) => ({ ...prev, task: !prev.task }));
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
   });
 
@@ -90,8 +91,9 @@ export default function FormTask() {
       setId(null);
     }
     setOpen((prev) => ({ ...prev, task: !prev.task }));
+    form.reset();
   };
-  // console.log(category);
+
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmite)} className=" space-y-6 w-full">
@@ -101,7 +103,7 @@ export default function FormTask() {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>title</FormLabel>
+                <FormLabel>Title</FormLabel>
                 <FormControl>
                   <Input placeholder="Input title" {...field} type="text" />
                 </FormControl>
@@ -139,7 +141,7 @@ export default function FormTask() {
             className="bg-primary cursor-pointer"
             disabled={isPending}
           >
-            {id?.id ? 'Save Changes ' : 'Add'}
+            {id?.id ? 'Save Changes' : 'Add Task'}
           </Button>
         </DialogFooter>
       </form>

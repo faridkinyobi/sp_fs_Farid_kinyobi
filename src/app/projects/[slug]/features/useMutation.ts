@@ -34,6 +34,7 @@ export const useMutationFetchTask = ({ id }: { id?: string }) => {
     queryFn: async () => {
       return await TaskServiceActionGet(id as string);
     },
+    placeholderData: [],
     enabled: !!id, // id jalan jika tidak false (undefined/null/empty)
   });
 };

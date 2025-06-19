@@ -25,10 +25,10 @@ const COLUMMES = [
 
 export default function ListColume() {
   const searchParams = useSearchParams();
-  const id = searchParams.get('id');
+  const id = searchParams.get('id') ?? undefined;
 
   const { data, isLoading, refetch } = useMutationFetchTask({
-    id: id ?? undefined,
+    id: id,
   });
   const queryClient = useQueryClient();
 

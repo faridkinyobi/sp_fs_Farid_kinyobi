@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { useMutationDeletTask } from '../useMutation';
 import toast from 'react-hot-toast';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const DialogTaskModal = React.memo(() => {
   const context = React.useContext(ProviderContext);
@@ -35,6 +36,7 @@ interface DialogTaskDeletProps {
 
 export const DialogTaskDelet = React.memo(
   ({ deletShowModel, setDeletShowModel }: DialogTaskDeletProps) => {
+    const queryClient = useQueryClient();
     const context = React.useContext(ProviderContext);
     if (!context) return null;
     const { id } = context;
@@ -48,10 +50,10 @@ export const DialogTaskDelet = React.memo(
           toast.error(res.error.message);
           return;
         }
-        toast.success('Create Successfully');
+        toast.success('Deleted successfully');
         setTimeout(() => {
           setDeletShowModel(!deletShowModel);
-          window.location.reload();
+          queryClient.invalidateQueries({ queryKey: ['tasks'] });
         }, 400);
       },
     });
@@ -61,7 +63,7 @@ export const DialogTaskDelet = React.memo(
         mutate(id.id as string);
       }
     };
-    
+
     return (
       <DialogTemplate
         className="h-[180px] w-[400px]"

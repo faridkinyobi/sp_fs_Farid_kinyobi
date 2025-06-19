@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { ProviderContext } from '@/context/ThemeContext';
 import { Plus } from 'lucide-react';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { DialogTaskDelet, DialogTaskModal } from './DialogTask';
 import TaskCard from './TaskCard';
 
@@ -28,17 +28,19 @@ export const Colume = React.memo((props: Props) => {
     email: '',
     name: '',
   });
+
   const [deletShowModel, setDeletShowModel] = React.useState<boolean>(false);
   const [showDropdown, setShowDropdown] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    const storedEmail = localStorage.getItem('email');
-    if (storedEmail) {
-      setDataEmail((prev) => ({ ...prev, email: storedEmail }));
-      setDataEmail((prev) => ({
-        ...prev,
-        name: storedEmail.charAt(0).toUpperCase(),
-      }));
+    if (typeof window !== 'undefined') {
+      const storedEmail = localStorage.getItem('email');
+      if (storedEmail) {
+        setDataEmail({
+          email: storedEmail,
+          name: storedEmail.charAt(0).toUpperCase(),
+        });
+      }
     }
   }, []);
 
@@ -53,7 +55,7 @@ export const Colume = React.memo((props: Props) => {
 
   const handleAddModalOpen = React.useCallback(() => {
     setOpen((prev: typeof open) => ({ ...prev, task: !prev.task }));
-  }, [setOpen, open]);
+  }, [setOpen, setId]);
 
   const handleEdit = useCallback(
     (data: any) => {
@@ -63,7 +65,7 @@ export const Colume = React.memo((props: Props) => {
         setOpen((prev) => ({ ...prev, task: !prev.task }));
       }
     },
-    [setId, setOpen, showDropdown],
+    [open.task, setId, setOpen],
   );
 
   const handleDelet = useCallback(

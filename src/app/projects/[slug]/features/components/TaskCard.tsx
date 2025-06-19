@@ -2,7 +2,7 @@
 
 import { ProviderContext } from '@/context/ThemeContext';
 import { useDraggable } from '@dnd-kit/core';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { DialogTaskDelet, DialogTaskModal } from './DialogTask';
 import { EllipsisVertical } from 'lucide-react';
 import { AvatarImage, Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -44,9 +44,13 @@ export default React.memo(function TaskCard(props: Props) {
     id: id,
   });
 
-  const style = transform
-    ? { transform: `translate(${transform.x}px, ${transform.y}px)` }
-    : {};
+  const style = useMemo(
+    () =>
+      transform
+        ? { transform: `translate(${transform.x}px, ${transform.y}px)` }
+        : {},
+    [transform],
+  );
   const [showDropdown, setShowDropdown] = React.useState(false);
 
   // context
@@ -59,6 +63,9 @@ export default React.memo(function TaskCard(props: Props) {
       setShowDropdown(false);
     }
   }, [open.task]);
+
+  const handleEdit = useCallback(() => onEdit(props), [onEdit, props]);
+  const handleDelete = useCallback(() => onDelet(props), [onDelet, props]);
 
   return (
     <div ref={setNodeRef} {...attributes} {...listeners} style={style}>
@@ -89,14 +96,14 @@ export default React.memo(function TaskCard(props: Props) {
               >
                 <DropdownMenuItem
                   className="py-1.5 px-2 cursor-pointer"
-                  onMouseDown={() => onEdit(props)}
+                  onMouseDown={handleEdit}
                 >
                   Update task
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   variant={'destructive'}
                   className="py-1.5 px-2 cursor-pointer flex"
-                  onMouseDown={() => onDelet(props)}
+                  onMouseDown={handleDelete}
                 >
                   Delete task
                 </DropdownMenuItem>
@@ -104,7 +111,7 @@ export default React.memo(function TaskCard(props: Props) {
             </DropdownMenu>
           </div>
           <p className="text-secondary-foreground text-sm md:text-base truncate">
-            {description}
+            {description || 'No description'}
           </p>
         </div>
         <div className="flex flex-wrap justify-between w-auto items-center">
