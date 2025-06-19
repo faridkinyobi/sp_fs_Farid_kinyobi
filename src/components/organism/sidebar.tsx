@@ -33,7 +33,7 @@ const menuItems = [
 
 export function AppSidebar() {
   const pathname = usePathname();
-  // const [openAddModal, setOpenAddModal] = React.useState<boolean>(false);
+
   const router = useRouter();
   const context = React.useContext(ProviderContext);
   if (!context) return null;
@@ -48,7 +48,7 @@ export function AppSidebar() {
   const handleOpen = () => setOpen({ ...open, logout: !open.logout });
   return (
     <Sidebar className="w-[267px] ">
-      {open && (
+      {open.logout && (
         <DialogDelet handleCloseModelComfrime={handleCloseModelComfrime} />
       )}
       <SidebarHeader className=" py-6 px-8">
@@ -73,17 +73,10 @@ export function AppSidebar() {
                   : ' hover:bg-transparent ',
               )}
             >
-              <Link
-                href={item.label === 'Logout' ? pathname : item.href}
-                onClick={(e) => {
-                  if (item.label === 'Logout') {
-                    handleOpen();
-                  }
-                }}
-              >
+              <button onClick={handleOpen}>
                 {item.icon}
                 {item.label}
-              </Link>
+              </button>
             </SidebarMenuButton>
           ))}
         </SidebarMenu>
