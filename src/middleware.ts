@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 const PRIVATE_PATHS = ['/dashboard', '/product'];
-const PUBLIC_PATHS = ['/login', '/register', '/', '/belajar'];
+const PUBLIC_PATHS = ['/login', '/register', '/'];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -23,5 +23,11 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/login', '/register', '/dashboard/:path*', '/project/:path*'],
+  matcher: [
+    '/',
+    '/login',
+    '/register',
+    '/dashboard/:path*',
+    '/project/:path*',
+  ],
 };
