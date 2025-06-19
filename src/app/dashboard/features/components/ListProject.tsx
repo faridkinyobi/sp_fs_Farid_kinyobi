@@ -12,8 +12,6 @@ export default function ListProject() {
   const { data, isLoading } = useMutationFetchProject();
   const router = useRouter();
 
-  const [editShowModel, setEditShowModel] = React.useState<boolean>(false);
-
   // context
   const context = React.useContext(ProviderContext);
   if (!context) return null;
@@ -22,17 +20,16 @@ export default function ListProject() {
   const handleShowEdit = useCallback(
     (data: any) => {
       setId(data);
-      setEditShowModel((prev) => !prev);
       setOpen((prev: typeof open) => ({
         ...prev,
         project: !prev.project,
       }));
     },
-    [open, editShowModel],
+    [setId, setOpen],
   );
 
   const handleSLug = React.useCallback(
-    (id: string | number | undefined, name: string) => {
+    ({ id, name }: { id: string | undefined; name: string }) => {
       const push = router.push(`/projects/id?id=${id}&name=${name}`);
       return push;
     },
@@ -46,18 +43,18 @@ export default function ListProject() {
             <ProjectCardSkeleton key={i} />
           ))
         : Array.isArray(data) &&
-          data.map((items, index) => (
-            <div key={index} onClick={() => handleSLug(items.id, items.name)}>
-              <CardProject
-                {...items}
-                handleShowEdit={() => handleShowEdit(items)}
-                createdAt={
-                  typeof items.createdAt === 'string'
-                    ? items.createdAt
-                    : items.createdAt.toISOString()
-                }
-              />
-            </div>
+          data.map((items) => (
+            <CardProject
+              {...items}
+              key={items.id}
+              onCardClik={handleSLug}
+              handleShowEdit={handleShowEdit}
+              createdAt={
+                items.createdAt instanceof Date
+                  ? items.createdAt.toISOString()
+                  : String(items.createdAt)
+              }
+            />
           ))}
     </div>
   );

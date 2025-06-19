@@ -9,7 +9,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 
-import { Input, Textarea } from '@/components/ui/input';
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { ProviderContext } from '@/context/ThemeContext';
@@ -40,7 +40,7 @@ export default function FormProject() {
     if (id) {
       setValue('name', (id as any).name || '');
     }
-  }, [open.project]);
+  }, [id, open.project]);
 
   const { refetch } = useMutationFetchProject();
 
@@ -51,7 +51,7 @@ export default function FormProject() {
         toast.error(res.error.message);
         return;
       }
-      toast.success('Add Success');
+      toast.success('Add Successfully');
       setOpen({ ...open, project: !open.project });
       refetch();
     },
@@ -75,7 +75,7 @@ export default function FormProject() {
   };
 
   const handleClose = React.useCallback(() => {
-    setOpen((prev: typeof open) => ({ ...prev, project: !open.project }));
+    setOpen((prev: typeof open) => ({ ...prev, project: !prev.project }));
     if (open.project) {
       setId(null);
     }
@@ -104,7 +104,7 @@ export default function FormProject() {
             type="button"
             variant={'outline'}
             className="cursor-pointer"
-            onClick={() => handleClose()}
+            onClick={handleClose}
             size={'sm'}
           >
             Cancel
@@ -115,7 +115,7 @@ export default function FormProject() {
             className="bg-primary cursor-pointer"
             disabled={isPending}
           >
-            {id?.id ? 'Save Changes ' : 'Add'}
+            {isPending ? 'Saving...' : id?.id ? 'Save Changes' : 'Add'}
           </Button>
         </DialogFooter>
       </form>

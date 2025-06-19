@@ -7,16 +7,16 @@ import FormProject from './FormProject';
 export const DialogProjectModal = React.memo(() => {
   const context = React.useContext(ProviderContext);
   if (!context) return null;
-  const { id, open, setOpen,setId } = context;
+  const { id, open, setOpen } = context;
 
-  const handleOpen = () => {
-    return setOpen({ ...open, project: !open.project });
-  };
+  const handleOpen = React.useCallback(() => {
+    setOpen((prev) => ({ ...prev, project: !prev.project }));
+  }, [setOpen]);
 
   return (
     <DialogTemplate
       open={open.project}
-      onOpenChange={() => handleOpen()}
+      onOpenChange={handleOpen}
       className="min-h-fit w-[400px]"
       title={`${id?.id ? 'Edit Project' : 'Add Project'}`}
     >
