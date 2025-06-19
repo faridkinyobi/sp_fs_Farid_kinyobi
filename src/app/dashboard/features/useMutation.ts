@@ -37,5 +37,6 @@ export const useMutationFetchProject = () => {
   return useQuery({
     queryKey: ['projects Fetch'],
     queryFn: async () => await ProjectServiceActionGet(),
+    placeholderData: [],
   });
 };
