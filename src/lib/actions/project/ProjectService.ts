@@ -31,10 +31,12 @@ export async function ProjectServiceActionCreat(body: IprojectFormValidate) {
 }
 // Read
 export default async function ProjectServiceActionGet() {
-  const userId = await getAuthenticatedIdCookies();
-  if (!userId) return null;
   try {
+    const userId = await getAuthenticatedIdCookies();
+    if (!userId) return null;
+
     const result = await projectRepository.findAll(userId);
+
     const resultSummaries = result.map((items) => ({
       id: items.id,
       name: items.name,
@@ -78,20 +80,27 @@ export async function ProjectServiceActionUpdate(
 }
 // Delet
 export async function ProjectServiceActionDelet(id: string) {
-
-  const verify = await getAuthenticatedIdCookies();
-  if (!verify) return null;
-
   try {
-    const checkTask = await projectRepository.getById(id);
-
-    if (!checkTask) {
+    const verify = await getAuthenticatedIdCookies();
+    if (!verify) {
+      throw new AppError(ERROR_CODE.UNAUTHORIZED.code, 'Unauthorized user');
+    }
+    const checkproject = await projectRepository.getById(id);
+    if (!checkproject) {
       throw new AppError(ERROR_CODE.NOT_FOUND.code, 'projeck not found');
     }
+    console.log(verify);
+    if (verify !== checkproject?.ownerId) {
+      throw new AppError(
+        ERROR_CODE.UNAUTHORIZED.code,
+        'Only the owner can delet project',
+      );
+    }
+
     const result = await projectRepository.delet(id);
+
     return result;
   } catch (error) {
-    handleApiError(error as Error);
-    throw error;
+    return handleApiError(error as Error);
   }
 }

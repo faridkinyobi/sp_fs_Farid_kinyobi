@@ -22,13 +22,14 @@ export const postData = (data: IprojectFormValidate) => {
   });
 };
 
-
 export const getById = (id: string) => {
   return prisma.project.findUnique({ where: { id } });
 };
 
 export const delet = (id: string) => {
-  return prisma.project.delete({ where: { id } });
+  return prisma.project.delete({
+    where: { id },
+  });
 };
 
 export const findAll = (userId: string) => {
@@ -65,6 +66,7 @@ export const findAll = (userId: string) => {
     },
   });
 };
+
 export const update = (
   id: string,
   data: Partial<{ name: string; owner?: string | undefined }>,

@@ -32,12 +32,19 @@ export const getById = (id: string) => {
 export const delet = (id: string) => {
   return prisma.task.delete({ where: { id } });
 };
-export const findAll = (id: string, projeckId: string) => {
+export const findAll = (projeckId: string) => {
   return prisma.task.findMany({
     where: {
-      assigneeId: id,
+      // assigneeId: id,
       projectId: projeckId,
     },
+    // include: {
+    //   assignee: {
+    //     include: {
+    //       Membership: true,
+    //     },
+    //   },
+    // },
   });
 };
 export const update = (id: string, data: Prisma.ProjectUpdateInput) => {

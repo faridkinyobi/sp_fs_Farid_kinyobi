@@ -52,14 +52,21 @@ export async function TaskServiceActionGet(id: string) {
     if (!checkTask) {
       throw new AppError(ERROR_CODE.NOT_FOUND.code, 'project not found');
     }
-    const userId = await getAuthenticatedIdCookies();
-    const result = await taskRepository.findAll(userId, id);
 
+    // check member
+    const checkMember = await taskRepository.getMemberByOwner(verify, id);
+
+    if (!checkMember) {
+      throw new AppError(ERROR_CODE.NOT_FOUND.code, 'member not found');
+    }
+
+    const result = await taskRepository.findAll(id);
     return result;
   } catch (error) {
     return handleApiError(error as Error);
   }
 }
+
 // Update
 export async function TaskServiceActionUpdate(body: string[], id: string) {
   const verify = await getAuthenticatedIdCookies();
@@ -67,6 +74,12 @@ export async function TaskServiceActionUpdate(body: string[], id: string) {
   try {
     const taskPayload = { ...body, id: id };
 
+    // check member
+    const checkMember = await taskRepository.getMemberByOwner(verify, id);
+
+    if (!checkMember) {
+      throw new AppError(ERROR_CODE.NOT_FOUND.code, 'member not found');
+    }
     await validateRequest(SchemaZodTask, taskPayload);
     const checkTask = await taskRepository.getById(taskPayload.id);
 
@@ -87,6 +100,13 @@ export async function TaskServiceActionDelet(id: string) {
   const verify = await getAuthenticatedIdCookies();
   if (!verify) return null;
   try {
+    // check member
+    const checkMember = await taskRepository.getMemberByOwner(verify, id);
+
+    if (!checkMember) {
+      throw new AppError(ERROR_CODE.NOT_FOUND.code, 'member not found');
+    }
+
     const checkTask = await taskRepository.getById(id);
 
     if (!checkTask) {
