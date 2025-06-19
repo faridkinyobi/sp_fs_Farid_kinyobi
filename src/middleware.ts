@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { notFound } from 'next/navigation';
+
 const PRIVATE_PATHS = ['/dashboard', '/product'];
-const PUBLIC_PATHS = ['/login', '/register', '/'];
+const PUBLIC_PATHS = ['/login', '/register', '/', '/belajar'];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const protectedPrivateRoute = PRIVATE_PATHS.includes(pathname);
-  const publicRoute = PRIVATE_PATHS.includes(pathname);
+  const publicRoute = PUBLIC_PATHS.includes(pathname);
 
   // ssr
   const token = request.cookies.get('auth')?.value;
@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
   if (protectedPrivateRoute && !token) {
     return NextResponse.redirect(new URL('/', request.url));
   }
-  if (publicRoute && token && !pathname.startsWith('/dashboard')) {
+  if (publicRoute && token) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
@@ -23,5 +23,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/project/:path*'],
+  matcher: ['/', '/login', '/register', '/dashboard/:path*', '/project/:path*'],
 };
