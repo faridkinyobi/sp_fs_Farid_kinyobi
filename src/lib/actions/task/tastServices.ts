@@ -18,6 +18,7 @@ export async function TaskServiceActionCreat(body: ItaskFormValidate) {
     if (!checkProject) {
       throw new AppError(ERROR_CODE.NOT_FOUND.code, 'Project not found');
     }
+
     // check member owner
     const checkMember = await taskRepository.getMemberByOwner(
       ownerId,
@@ -47,9 +48,9 @@ export async function TaskServiceActionGet(id: string) {
   const verify = await getAuthenticatedIdCookies();
   if (!verify) return null;
   try {
-    const checkTask = await taskRepository.getByIdproject(id);
+    const checkProjeck = await taskRepository.getByIdproject(id);
 
-    if (!checkTask) {
+    if (!checkProjeck) {
       throw new AppError(ERROR_CODE.NOT_FOUND.code, 'project not found');
     }
 
@@ -74,17 +75,23 @@ export async function TaskServiceActionUpdate(body: string[], id: string) {
   try {
     const taskPayload = { ...body, id: id };
 
-    // check member
-    const checkMember = await taskRepository.getMemberByOwner(verify, id);
-
-    if (!checkMember) {
-      throw new AppError(ERROR_CODE.NOT_FOUND.code, 'member not found');
-    }
     await validateRequest(SchemaZodTask, taskPayload);
+
+    // check task
     const checkTask = await taskRepository.getById(taskPayload.id);
 
     if (!checkTask) {
       throw new AppError(ERROR_CODE.NOT_FOUND.code, 'Tasks cannot be moved');
+    }
+
+    // check member
+    const checkMember = await taskRepository.getMemberByOwner(
+      verify,
+      checkTask.projectId,
+    );
+   
+    if (!checkMember) {
+      throw new AppError(ERROR_CODE.NOT_FOUND.code, 'member not found');
     }
 
     const result = await taskRepository.update(id, taskPayload);
